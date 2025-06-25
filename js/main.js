@@ -20,12 +20,26 @@ addToDoBtn.addEventListener('click', () => {
     }
 });
 
+const createElement = (tagName, textContent) => {
+    const element = document.createElement(tagName);
+    element.textContent = textContent;
+    return element;
+}
+
+const removeTodo = (index) => {
+    todoList.splice(index, 1);
+    saveLocalStorage();
+    render();
+}
+
 const render = () => {
     container.innerHTML = '';
-    todoList.forEach((todo) => {
-    const todoElement = document.createElement('div');
-    todoElement.textContent = todo;
-    container.append(todoElement); 
+    todoList.forEach((todo, index) => {
+        const todoElement = createElement('div', todo);
+        const removeElement = createElement('button', 'delete');
+        removeElement.addEventListener('click', () => removeTodo(index) );
+        todoElement.append(removeElement);
+        container.append(todoElement); 
     });
 }
 
