@@ -6,12 +6,16 @@ const container = document.querySelector('[data-todo-container]');
 
 const todoList = JSON.parse(localStorage.getItem('todos')) || [];
 
+const saveLocalStorage = (key = 'todos') => {
+    localStorage.setItem(key, JSON.stringify(todoList));
+}
+
 addToDoBtn.addEventListener('click', () => {
     if (input.value.trim()) {  
         todoList.push(input.value); 
         input.value = '';
 
-        localStorage.setItem('todos', JSON.stringify(todoList))
+        saveLocalStorage();
         render();
     }
 });
